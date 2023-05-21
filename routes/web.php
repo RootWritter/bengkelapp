@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\MasterController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'dashboard']);
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::group(['prefix' => 'master', 'as' => 'master.'], function () {
         Route::get('mechanic', [MasterController::class, 'mechanic']);
+        Route::get('sparepart', [MasterController::class, 'sparepart']);
+    });
+    Route::group(['prefix' => 'data', 'as' => 'data.'], function () {
+        Route::get('mechanic', [DataController::class, 'mechanic']);
+        Route::post('mechanic', [DataController::class, 'getMechanic']);
+    });
+    Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function () {
+        Route::post('mechanic', [AjaxController::class, 'mechanic']);
     });
 });
 Route::get('auth/login', [AuthController::class, 'login_page'])->name('login');

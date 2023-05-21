@@ -12,11 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mechanics', function (Blueprint $table) {
+        Schema::create('parts', function (Blueprint $table) {
             $table->id()->index();
-            $table->uuid()->default(Str::uuid())->index();
+            $table->uuid()->default(Str::uuid());
+            $table->enum('brand', ['Yamaha', 'Honda', 'Suzuki', 'Kawasaki', 'Lainnya'])->default('Lainnya');
             $table->string('name');
+            $table->string('code');
             $table->longText('photo');
+            $table->double('price');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mechanics');
+        Schema::dropIfExists('parts');
     }
 };

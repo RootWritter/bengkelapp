@@ -32,11 +32,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/custom.css">
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/bootstrap.css">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/datatables.css">
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/style.css">
     <link id="color" rel="stylesheet" href="{{ asset('assets') }}/css/color-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/responsive.css">
+    <!-- Plugins css start-->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -86,6 +90,7 @@
                                 <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i class="fal fa-folder mr-3"></i><span>Master Data</span></a>
                                     <ul class="nav-submenu menu-content">
                                         <li><a href="{{ url('master/mechanic') }}">Mekanik</a></li>
+                                        <li><a href="{{ url('master/sparepart') }}">Sparepart</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -140,12 +145,22 @@
     <script src="{{ asset('assets') }}/js/prism/prism.min.js"></script>
     <script src="{{ asset('assets') }}/js/clipboard/clipboard.min.js"></script>
     <script src="{{ asset('assets') }}/js/custom-card/custom-card.js"></script>
+    <script src="{{ asset('assets') }}/js/datatable/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('assets') }}/js/datatable/datatables/datatable.custom.js"></script>
     <script src="{{ asset('assets') }}/js/tooltip-init.js"></script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{ asset('assets') }}/js/script.js"></script>
     <!-- login js-->
     <!-- Plugin used-->
+    <!-- script on this Page -->
+    <!-- Plugins JS start-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script>
+        var token = "{{ csrf_token() }}"
+    </script>
+    @yield('script')
 </body>
 
 </html>
