@@ -93,6 +93,7 @@
                                         <li><a href="{{ url('master/sparepart') }}">Sparepart</a></li>
                                     </ul>
                                 </li>
+                                <li><a class="nav-link menu-title link-nav" href="{{ url('cashier') }}"><i class="fal fa-cash-register mr-3"></i><span>Kasir</span></a></li>
                             </ul>
                         </div>
                     </div>

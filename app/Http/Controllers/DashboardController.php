@@ -15,4 +15,12 @@ class DashboardController extends Controller
         ];
         return view('dashboard', $data);
     }
+    public function cashier()
+    {
+        $data = [
+            'page' => 'Halaman Kasir',
+            'user' => Auth::user(),
+        ];
+        return view('cashier', $data);
+    }
 }

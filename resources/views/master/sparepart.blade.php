@@ -13,7 +13,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Brand</th>
                                 <th>Nama</th>
+                                <th>Code</th>
+                                <th>Harga</th>
+                                <th>Sisa Stok</th>
                                 <th>Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -52,11 +56,19 @@
                     </div>
                     <div class="form-group mb-3">
                         <label>Kode Produk</label>
-                        <input type="text" class="form-control" name="code" placeholder="Masukan Nama Kode Produk">
+                        <input type="text" class="form-control" name="code" placeholder="Masukan Kode Produk">
                     </div>
                     <div class="form-group mb-3">
-                        <label>Foto Mekanik</label>
+                        <label>Harga Produk</label>
+                        <input type="text" class="form-control" name="price" placeholder="Masukan Harga Produk">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Foto Produk</label>
                         <input type="file" class="form-control" name="photo">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Stok Produk</label>
+                        <input type="number" class="form-control" name="stock">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -79,13 +91,36 @@
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" id="edit_id">
                     <div class="form-group mb-3">
-                        <label>Nama Mekanik</label>
-                        <input type="text" class="form-control" id="edit_name" name="name" placeholder="Masukan Nama Mekanik">
+                        <label>Brand</label>
+                        <select class="form-select" id="edit_brand" name="brand">
+                            <option value="null">-- Silahkan Pilih --</option>
+                            <option value="Yamaha">Yamaha</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Suzuki">Suzuki</option>
+                            <option value="Kawasaki">Kawasaki</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label>Foto Mekanik</label>
-                        <input type="file" class="form-control" id="edit_photo" name="photo">
+                        <label>Nama Produk</label>
+                        <input type="text" class="form-control" id="edit_name" name="name" placeholder="Masukan Nama Product">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Kode Produk</label>
+                        <input type="text" class="form-control" id="edit_code" name="code" placeholder="Masukan Kode Produk">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Harga Produk</label>
+                        <input type="text" class="form-control" id="edit_price" name="price" placeholder="Masukan Harga Produk">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Foto Produk</label>
+                        <input type="file" class="form-control" name="photo">
                         <small class="text-danger">*Silahkan Upload jika ingin memperbaharui foto</small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Stok Produk</label>
+                        <input type="number" class="form-control" id="edit_stock" name="stock">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -108,13 +143,36 @@
                     <input type="hidden" name="action" value="hapus">
                     <input type="hidden" name="id" id="hapus_id">
                     <div class="form-group mb-3">
-                        <label>Nama Mekanik</label>
-                        <input type="text" class="form-control" id="hapus_name" name="name" placeholder="Masukan Nama Mekanik" readonly>
+                        <label>Brand</label>
+                        <select class="form-select" disabled id="hapus_brand" name="brand">
+                            <option value="null">-- Silahkan Pilih --</option>
+                            <option value="Yamaha">Yamaha</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Suzuki">Suzuki</option>
+                            <option value="Kawasaki">Kawasaki</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label>Foto Mekanik</label>
-                        <input type="file" class="form-control" id="hapus_photo" name="photo" disabled>
+                        <label>Nama Produk</label>
+                        <input type="text" class="form-control" readonly id="hapus_name" name="name" placeholder="Masukan Nama Product">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Kode Produk</label>
+                        <input type="text" class="form-control" readonly id="hapus_code" name="code" placeholder="Masukan Kode Produk">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Harga Produk</label>
+                        <input type="text" class="form-control" readonly id="hapus_price" name="price" placeholder="Masukan Harga Produk">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Foto Produk</label>
+                        <input type="file" class="form-control" name="photo">
                         <small class="text-danger">*Foto akan dihapus jika menghapus data</small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Stok Produk</label>
+                        <input type="number" class="form-control" id="hapus_stock" name="stock">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -129,7 +187,7 @@
 @section('script')
 <script>
     var table = $('#simpletable').DataTable({
-        ajax: "{{ url('data/mechanic') }}",
+        ajax: "{{ url('data/sparepart') }}",
         processing: true,
         serverSide: true,
         columns: [{
@@ -137,8 +195,24 @@
                 name: 'id'
             },
             {
+                data: 'brand',
+                name: 'brand'
+            },
+            {
                 data: 'name',
                 name: 'name'
+            },
+            {
+                data: 'code',
+                name: 'code'
+            },
+            {
+                data: 'price',
+                name: 'price'
+            },
+            {
+                data: 'stock',
+                name: 'stock'
             },
             {
                 data: 'photo',
@@ -155,7 +229,7 @@
         e.preventDefault();
         let form = new FormData(this);
         form.append('_token', token);
-        axios.post(`{{ url('ajax/mechanic') }}`, form)
+        axios.post(`{{ url('ajax/sparepart') }}`, form)
             .then(result => {
                 if (result.data.error) {
                     Swal.fire({
@@ -202,7 +276,7 @@
 
     function edit(id) {
         $.ajax({
-            url: "{{ url('data/mechanic') }}",
+            url: "{{ url('data/sparepart') }}",
             method: "POST", // First change type to method here    
             data: {
                 id: id,
@@ -219,6 +293,10 @@
                     $(".modalEdit").modal('show')
                     $("#edit_id").val(response.data.id);
                     $("#edit_name").val(response.data.name);
+                    $("#edit_brand").val(response.data.brand);
+                    $("#edit_code").val(response.data.code);
+                    $("#edit_price").val(response.data.price);
+                    $("#edit_stock").val(response.data.stock);
                 }
             },
             error: function(request, status, error) {
@@ -234,7 +312,7 @@
         e.preventDefault();
         let form = new FormData(this);
         form.append('_token', token);
-        axios.post(`{{ url('ajax/mechanic') }}`, form)
+        axios.post(`{{ url('ajax/sparepart') }}`, form)
             .then(result => {
                 if (result.data.error) {
                     Swal.fire({
@@ -281,7 +359,7 @@
 
     function hapus(id) {
         $.ajax({
-            url: "{{ url('data/mechanic') }}",
+            url: "{{ url('data/sparepart') }}",
             method: "POST", // First change type to method here    
             data: {
                 id: id,
@@ -298,6 +376,10 @@
                     $(".modalHapus").modal('show')
                     $("#hapus_id").val(response.data.id);
                     $("#hapus_name").val(response.data.name);
+                    $("#hapus_brand").val(response.data.brand);
+                    $("#hapus_code").val(response.data.code);
+                    $("#hapus_price").val(response.data.price);
+                    $("#hapus_stock").val(response.data.stock);
                 }
             },
             error: function(request, status, error) {
@@ -313,7 +395,7 @@
         e.preventDefault();
         let form = new FormData(this);
         form.append('_token', token);
-        axios.post(`{{ url('ajax/mechanic') }}`, form)
+        axios.post(`{{ url('ajax/sparepart') }}`, form)
             .then(result => {
                 if (result.data.error) {
                     Swal.fire({
